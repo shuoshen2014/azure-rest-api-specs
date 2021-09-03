@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Azure Web PubSub Service REST API",
-    "version": "2021-08-01-preview"
+    "version": "2021-09-01-preview"
   },
   "paths": {
     "/api/health": {
@@ -18,7 +18,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -57,8 +57,7 @@
             "in": "query",
             "name": "userId",
             "description": "User Id.",
-            "type": "string",
-            "default": ""
+            "type": "string"
           },
           {
             "in": "query",
@@ -83,7 +82,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -136,7 +135,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           },
           {
             "in": "body",
@@ -189,7 +188,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -239,7 +238,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -287,7 +286,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           },
           {
             "in": "body",
@@ -341,7 +340,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -403,7 +402,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           },
           {
             "in": "body",
@@ -465,7 +464,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -518,7 +517,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -561,7 +560,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -612,7 +611,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           },
           {
             "in": "body",
@@ -627,6 +626,63 @@
         ],
         "responses": {
           "202": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error response",
+            "x-ms-error-response": true
+          }
+        }
+      }
+    },
+    "/api/hubs/{hub}/users/{userId}/:closeConnections": {
+      "post": {
+        "tags": [
+          "webpubsub"
+        ],
+        "summary": "Closes the connections belonging to the user.",
+        "operationId": "WebPubSub_CloseUserConnections",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "hub",
+            "description": "Target hub name, which should start with alphabetic characters and only contain alpha-numeric characters or underscore.",
+            "required": true,
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_`,.[\\]]{0,127}$"
+          },
+          {
+            "in": "query",
+            "name": "excluded",
+            "description": "Exclude these connectionIds when closing the connections for the user.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "description": "The reason closing the client connection.",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "api-version",
+            "description": "The version of the REST APIs.",
+            "type": "string",
+            "default": "2021-09-01-preview"
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "Success"
           },
           "default": {
@@ -674,7 +730,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -727,7 +783,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -770,7 +826,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -834,7 +890,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -896,7 +952,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
@@ -958,7 +1014,7 @@
             "name": "api-version",
             "description": "The version of the REST APIs.",
             "type": "string",
-            "default": "2021-05-01-preview"
+            "default": "2021-09-01-preview"
           }
         ],
         "responses": {
