@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "3.4-preview",
+    "version": "3.4-preview.1",
     "title": "Custom Vision Training Client"
   },
   "host": "southcentralus.api.cognitive.microsoft.com",
-  "basePath": "/customvision/v3.4-preview/training",
+  "basePath": "/customvision/v3.4-preview.1/training",
   "schemes": [
     "https"
   ],
@@ -165,7 +165,7 @@
           {
             "name": "domainId",
             "in": "query",
-            "description": "The id of the domain to use for this project. Defaults to General.",
+            "description": "The id of the domain to use for this project. Defaults to General domain for image classification.",
             "required": false,
             "type": "string",
             "format": "uuid"
@@ -207,7 +207,8 @@
             "required": false,
             "schema": {
               "$ref": "#/definitions/CreateProjectOptions"
-            }
+            },
+            "x-nullable": true
           }
         ],
         "responses": {
@@ -1066,7 +1067,8 @@
               "type": "object",
               "additionalProperties": {
                 "type": "string"
-              }
+              },
+              "x-nullable": true
             }
           }
         ],
@@ -2565,7 +2567,7 @@
           {
             "name": "predictionId",
             "in": "query",
-            "description": "The id of the prediction resource to publish to.",
+            "description": "The id of the prediction resource to publish to. You can find the prediction resource ID on the resource's Properties tab in the Azure portal, listed as Resource ID.",
             "required": true,
             "type": "string"
           },
@@ -3204,8 +3206,8 @@
         "tags": [
           "SuggestTagsAndRegionsApi"
         ],
-        "summary": "Suggest tags and regions for an array/batch of untagged images. Returns empty array if no tags are found.",
-        "description": "This API will get suggested tags and regions for an array/batch of untagged images along with confidences for the tags. It returns an empty array if no tags are found.\r\nThere is a limit of 64 images in the batch.",
+        "summary": "Suggest tags and regions for an array/batch of images. Returns empty array if no tags are found.",
+        "description": "This API will get suggested tags and regions for an array/batch of images along with confidences for the tags. It returns an empty array if no tags are found.\r\nThere is a limit of 64 images in the batch.",
         "operationId": "SuggestTagsAndRegions",
         "consumes": [],
         "produces": [
@@ -3235,7 +3237,7 @@
           {
             "name": "imageIds",
             "in": "query",
-            "description": "Array of image ids tag suggestion are needed for. Use GetUntaggedImages API to get imageIds.",
+            "description": "Array of image ids tag suggestion are needed for. Use GetImages API to get imageIds.",
             "required": true,
             "type": "array",
             "items": {
@@ -3413,6 +3415,41 @@
         "x-ms-examples": {
           "Successful ImportProject request": {
             "$ref": "./examples/ImportProject.json"
+          }
+        }
+      }
+    },
+    "/quota": {
+      "get": {
+        "tags": [
+          "QuotaApi"
+        ],
+        "summary": "Get quota of an Azure training resource.",
+        "operationId": "GetQuota",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/xml"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TrainingQuota"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/CustomVisionError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Successful GetQuota request": {
+            "$ref": "./examples/GetQuota.json"
           }
         }
       }
@@ -3669,7 +3706,6 @@
           "description": "Domain id.",
           "type": "string",
           "readOnly": true,
-          "example": "00000000-0000-0000-0000-000000000000",
           "x-nullable": false
         },
         "name": {
@@ -3805,7 +3841,6 @@
           "description": "Id of the image.",
           "type": "string",
           "readOnly": true,
-          "example": "00000000-0000-0000-0000-000000000000",
           "x-nullable": false
         },
         "created": {
@@ -3950,7 +3985,6 @@
           "items": {
             "format": "uuid",
             "type": "string",
-            "example": "00000000-0000-0000-0000-000000000000",
             "x-nullable": false
           },
           "readOnly": false
@@ -3984,7 +4018,6 @@
           "items": {
             "format": "uuid",
             "type": "string",
-            "example": "00000000-0000-0000-0000-000000000000",
             "x-nullable": false
           },
           "readOnly": false
@@ -4810,7 +4843,8 @@
         "trainingErrorDetails": {
           "description": "Training error details, when training fails.\r\nValue is null when training succeeds.",
           "type": "string",
-          "readOnly": true
+          "readOnly": true,
+          "x-nullable": false
         }
       }
     },
@@ -4875,7 +4909,8 @@
           "format": "int32",
           "description": "Estimation of the exported FP32 Onnx model size (2 tags) in megabytes. This information is not present if the model cannot be exported.",
           "type": "integer",
-          "readOnly": false
+          "readOnly": false,
+          "x-nullable": true
         },
         "description": {
           "description": "Model description.",
@@ -5233,6 +5268,61 @@
           "type": "string",
           "readOnly": true,
           "x-nullable": true
+        },
+        "labelerImagesLimit": {
+          "format": "int32",
+          "description": "Gets or sets the max number of images to run through the Smart Labeler. Default is -1, unlimited.",
+          "type": "integer",
+          "readOnly": false,
+          "x-nullable": true
+        }
+      }
+    },
+    "ProjectTrainingQuota": {
+      "description": "Represents a set of quotas for a given project.",
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "format": "uuid",
+          "description": "Gets the project id of the project this quota applies to.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": false
+        },
+        "iterations": {
+          "$ref": "#/definitions/Quota",
+          "description": "Gets the iteration quota for the project.",
+          "readOnly": true
+        },
+        "images": {
+          "$ref": "#/definitions/Quota",
+          "description": "Gets the image quota for the project.",
+          "readOnly": true
+        },
+        "tags": {
+          "$ref": "#/definitions/Quota",
+          "description": "Gets the tag quota for the project.",
+          "readOnly": true
+        }
+      }
+    },
+    "Quota": {
+      "description": "Represents a training quota.",
+      "type": "object",
+      "properties": {
+        "total": {
+          "format": "int32",
+          "description": "The total allowable amount in the quota.",
+          "type": "integer",
+          "readOnly": true,
+          "x-nullable": false
+        },
+        "current": {
+          "format": "int32",
+          "description": "The amount of quota that has currently been used.",
+          "type": "integer",
+          "readOnly": true,
+          "x-nullable": false
         }
       }
     },
@@ -5364,7 +5454,7 @@
       }
     },
     "StoredSuggestedTagAndRegion": {
-      "description": "Result of a suggested tags and regions request of the untagged image.",
+      "description": "Result of a suggested tags and regions request of the image.",
       "type": "object",
       "properties": {
         "width": {
@@ -5509,7 +5599,7 @@
           "readOnly": false
         },
         "results": {
-          "description": "Result of a suggested tags and regions request of the untagged image.",
+          "description": "Result of a suggested tags and regions request of the image.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/StoredSuggestedTagAndRegion",
@@ -5720,6 +5810,32 @@
           "$ref": "#/definitions/CustomBaseModelInfo",
           "description": "Information of the previously trained iteration which provides the base model for current iteration's training.",
           "readOnly": false
+        }
+      }
+    },
+    "TrainingQuota": {
+      "description": "Represents a set of quotas associated with an account.",
+      "type": "object",
+      "properties": {
+        "tier": {
+          "description": "Gets the tier of resource.",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": false
+        },
+        "projectQuota": {
+          "$ref": "#/definitions/Quota",
+          "description": "Gets the project quota.",
+          "readOnly": true
+        },
+        "perProjectQuota": {
+          "description": "Gets a dictionary of quotas that apply per-project for each project.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ProjectTrainingQuota"
+          },
+          "readOnly": true,
+          "x-nullable": true
         }
       }
     }

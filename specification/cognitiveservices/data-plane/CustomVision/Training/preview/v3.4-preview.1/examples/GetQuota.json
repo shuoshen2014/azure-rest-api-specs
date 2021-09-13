@@ -1,0 +1,22 @@
+{
+  "parameters": {
+    "Endpoint": "https://westus.api.cognitive.microsoft.com",
+    "Content-Type": "application/json",
+    "Training-Key": "{API Key}"
+  },
+  "responses": {
+    "200": {
+      "headers": {},
+      "body": [
+        {
+            "tier": "S0",
+            "projectQuota": {
+                "total": 100,
+                "current": 2
+            },
+            "perProjectQuota": null
+        }
+      ]
+    }
+  }
+}

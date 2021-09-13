@@ -2232,7 +2232,7 @@
           {
             "name": "predictionId",
             "in": "query",
-            "description": "The id of the prediction resource to publish to.",
+            "description": "The id of the prediction resource to publish to. You can find the prediction resource ID on the resource's Properties tab in the Azure portal, listed as Resource ID.",
             "required": true,
             "type": "string"
           },
