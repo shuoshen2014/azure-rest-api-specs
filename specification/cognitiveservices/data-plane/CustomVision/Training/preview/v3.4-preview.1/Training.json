@@ -5278,34 +5278,6 @@
         }
       }
     },
-    "ProjectTrainingQuota": {
-      "description": "Represents a set of quotas for a given project.",
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "format": "uuid",
-          "description": "Gets the project id of the project this quota applies to.",
-          "type": "string",
-          "readOnly": true,
-          "x-nullable": false
-        },
-        "iterations": {
-          "$ref": "#/definitions/Quota",
-          "description": "Gets the iteration quota for the project.",
-          "readOnly": true
-        },
-        "images": {
-          "$ref": "#/definitions/Quota",
-          "description": "Gets the image quota for the project.",
-          "readOnly": true
-        },
-        "tags": {
-          "$ref": "#/definitions/Quota",
-          "description": "Gets the tag quota for the project.",
-          "readOnly": true
-        }
-      }
-    },
     "Quota": {
       "description": "Represents a training quota.",
       "type": "object",
@@ -5827,15 +5799,6 @@
           "$ref": "#/definitions/Quota",
           "description": "Gets the project quota.",
           "readOnly": true
-        },
-        "perProjectQuota": {
-          "description": "Gets a dictionary of quotas that apply per-project for each project.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/ProjectTrainingQuota"
-          },
-          "readOnly": true,
-          "x-nullable": true
         }
       }
     }
