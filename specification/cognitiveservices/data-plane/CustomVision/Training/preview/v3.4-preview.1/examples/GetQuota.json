@@ -9,12 +9,11 @@
       "headers": {},
       "body": [
         {
-            "tier": "S0",
-            "projectQuota": {
-                "total": 100,
-                "current": 2
-            },
-            "perProjectQuota": null
+          "tier": "S0",
+          "projectQuota": {
+            "total": 100,
+            "current": 2
+          }
         }
       ]
     }
