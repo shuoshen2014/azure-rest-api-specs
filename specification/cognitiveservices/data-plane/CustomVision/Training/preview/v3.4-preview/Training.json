@@ -165,7 +165,7 @@
           {
             "name": "domainId",
             "in": "query",
-            "description": "The id of the domain to use for this project. Defaults to General.",
+            "description": "The id of the domain to use for this project. Defaults to General domain for image classification.",
             "required": false,
             "type": "string",
             "format": "uuid"
@@ -2565,7 +2565,7 @@
           {
             "name": "predictionId",
             "in": "query",
-            "description": "The id of the prediction resource to publish to.",
+            "description": "The id of the prediction resource to publish to. You can find the prediction resource ID on the resource's Properties tab in the Azure portal, listed as Resource ID.",
             "required": true,
             "type": "string"
           },
@@ -3204,8 +3204,8 @@
         "tags": [
           "SuggestTagsAndRegionsApi"
         ],
-        "summary": "Suggest tags and regions for an array/batch of untagged images. Returns empty array if no tags are found.",
-        "description": "This API will get suggested tags and regions for an array/batch of untagged images along with confidences for the tags. It returns an empty array if no tags are found.\r\nThere is a limit of 64 images in the batch.",
+        "summary": "Suggest tags and regions for an array/batch of images. Returns empty array if no tags are found.",
+        "description": "This API will get suggested tags and regions for an array/batch of images along with confidences for the tags. It returns an empty array if no tags are found.\r\nThere is a limit of 64 images in the batch.",
         "operationId": "SuggestTagsAndRegions",
         "consumes": [],
         "produces": [
@@ -3235,7 +3235,7 @@
           {
             "name": "imageIds",
             "in": "query",
-            "description": "Array of image ids tag suggestion are needed for. Use GetUntaggedImages API to get imageIds.",
+            "description": "Array of image ids tag suggestion are needed for. Use GetImages API to get imageIds.",
             "required": true,
             "type": "array",
             "items": {
@@ -5364,7 +5364,7 @@
       }
     },
     "StoredSuggestedTagAndRegion": {
-      "description": "Result of a suggested tags and regions request of the untagged image.",
+      "description": "Result of a suggested tags and regions request of the image.",
       "type": "object",
       "properties": {
         "width": {
@@ -5509,7 +5509,7 @@
           "readOnly": false
         },
         "results": {
-          "description": "Result of a suggested tags and regions request of the untagged image.",
+          "description": "Result of a suggested tags and regions request of the image.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/StoredSuggestedTagAndRegion",
